@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Map with Collapsible Directions</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+  <style>
+    #map {
+      height: 800px;
+    }
+    /* Style the directions container */
+    .leaflet-routing-container {
+      width: 250px !important; /* fixed width */
+      max-height: 150px;         /* fixed height */
+      overflow-y: auto;          /* scroll if content overflows */
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Initialize the map centered on Kochi
+    var map = L.map('map').setView([9.9312, 76.2673], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Create the routing control with custom options
+    L.Routing.control({
+      waypoints: [
+        L.latLng(8.5241, 76.9366), // Trivandrum
+        L.latLng(9.9312, 76.2673)  // Kochi
+      ],
+      routeWhileDragging: true,
+      // Set the control to be collapsible and collapsed by default
+      collapsible: true,
+      collapsed: true,
+      // Position the control in the top right corner
+      position: 'topright'
+    }).addTo(map);
+  </script>
+</body>
+</html>
